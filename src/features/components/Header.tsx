@@ -20,8 +20,8 @@ const Header = () => {
       <View style={styles.timelistcontainer}>
         <TimeList />
       </View>
-      <CreateButton onPress={() => setCreateTask(true)} />
-      <FormData visible={createTask} closeBtn={() => setCreateTask(false)} />
+      {!createTask && <CreateButton onPress={() => setCreateTask(true)} />}
+      {createTask && <FormData closeBtn={() => setCreateTask(false)} />}
     </View>
   );
 };
