@@ -2,12 +2,21 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const CreateButton = ({ onPress }: { onPress: () => void }) => {
+const CreateButton = ({
+  onPress,
+  onFrom = false,
+}: {
+  onPress: () => void;
+  onFrom?: boolean;
+}) => {
   const safeAreaBottomInset: number = useSafeAreaInsets().bottom || 0;
   return (
-    <View>
+    <View style={onFrom ? styles.formButtonContainer : undefined}>
       <View
-        style={[styles.flowtingButton, { marginBottom: safeAreaBottomInset }]}
+        style={[
+          onFrom ? styles.solidButton : styles.flowtingButton,
+          { marginBottom: onFrom ? 0 : safeAreaBottomInset },
+        ]}
       >
         <Pressable style={styles.Btn} onPress={onPress}>
           <Text style={styles.BtnText}>Add Task</Text>
@@ -26,11 +35,20 @@ const CreateButton = ({ onPress }: { onPress: () => void }) => {
 export default CreateButton;
 
 const styles = StyleSheet.create({
+  formButtonContainer: {
+    width: "100%",
+    paddingVertical: 20,
+  },
   flowtingButton: {
     position: "absolute",
     bottom: 0,
     width: "100%",
     height: 60,
+  },
+  solidButton: {
+    width: "100%",
+    height: 60,
+    zIndex: 1,
   },
   Btn: {
     marginHorizontal: 20,
